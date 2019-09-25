@@ -5,6 +5,10 @@ exports.spotify = {
   secret: process.env.SPOTIFY_SECRET
 };
 
+exports.bandsintown = {
+  consumer_key: process.env.BandsInTown_app_KEY
+}
+  
 //#omdb API key
 
 //Here is your key: 7af38222
