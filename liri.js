@@ -51,12 +51,13 @@ var getSpotify = function (songName) {
 // Function for running a BandsInTown Search
 var getTour = function () {
     var urlHit =
-        "https://rest.bandsintown.com/artists/" + artistname + "/events?app_id=3bf94057849bab04d58bc26c6e5ac4d1&date=upcoming";
-
+        "https://rest.bandsintown.com/artists/" + band + "/events?app_id=3bf94057849bab04d58bc26c6e5ac4d1&date=upcoming";
+        
     request(urlHit, function (error, response, body) {
         if (!error && response.statusCode === 200) {
 
             var jsonData = JSON.parse(body);
+            let band = jsonData.lineup;
             console.log("Venue: " + jsonData.venue);
             console.log("Location: " + jsonData.city);
             console.log("Date:" + jsonData.datetime);
