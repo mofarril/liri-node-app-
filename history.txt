@@ -1,0 +1,9 @@
+function (artist) {
+    return artist.name;
+}function (artist) {
+    return artist.name;
+}function (artist) {
+    return artist.name;
+}function () {
+    return artist.name;
+}undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined

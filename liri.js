@@ -10,20 +10,24 @@ let Spotify = require("node-spotify-api");
 let fs = require("fs");
 //import API keys
 var keys = require("./keys.js");
-//import request npm
-var request = require("request");
+// import request moment.js
+var moment= require("moment");
 // Init spotify API client using client id and secret
 var spotify = new Spotify(keys.spotify);
 
+
 // FUNCTIONS
 
-// Writes to history.txt file
-var getArtistNames = function (artist) {
-    return artist.name;
-};
+ //idk if this works///
+
+//appends history.txt file
+
+fs.appendFile("history.txt", options, function(err) {
+    if (err) throw err;
+  });
 // Function for Spotify search
 var getSpotify = function (songName) {
-    if (songName === undefined) {
+    if (!songName) {
         songName = "The Sign";
     }
     spotify.search(
@@ -39,7 +43,7 @@ var getSpotify = function (songName) {
             var songs = data.tracks.items;
             for (var i = 0; i < songs.length; i++) {
                 console.log(i);
-                console.log("artist(s): " + songs[i].artists.map(getArtistNames));
+                console.log("artist(s): " + songs[i].artists);
                 console.log("song name: " + songs[i].name);
                 console.log("preview song: " + songs[i].preview_url);
                 console.log("album: " + songs[i].album.name);
@@ -49,52 +53,60 @@ var getSpotify = function (songName) {
     );
 };
 // Function for running a BandsInTown Search
-var getTour = function () {
+var getTour = function (artist) {
+    
     var urlHit =
-        "https://rest.bandsintown.com/artists/" + band + "/events?app_id=3bf94057849bab04d58bc26c6e5ac4d1&date=upcoming";
-        
-    request(urlHit, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
+        "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=3bf94057849bab04d58bc26c6e5ac4d1&date=upcoming";
+           
+        console.log(urlHit);
 
-            var jsonData = JSON.parse(body);
-            let band = jsonData.lineup;
-            console.log("Venue: " + jsonData.venue);
-            console.log("Location: " + jsonData.city);
-            console.log("Date:" + jsonData.datetime);
-
-            //need to format with moment.js
-        }
+    axios.get(urlHit).then(function (response) {
+           
+    console.log("Venue: " + response.venue); //
+    console.log("Location: " + response.venue.city);// 
+    console.log("Date:" + moment(response.data[1].datatime).format("MM/DD/YYYY"));
     });
 };
 // Function for running a Movie Search
+
 var getMovie = function (movieName) {
-    if (movieName === undefined) {
-        movieName = "Mr Nobody";
+
+    if(!movieName){
+        movieName ="Mr.Nobody";
     }
+    
     var urlHit =
         "http://www.omdbapi.com/?t=" +
         movieName +
         "&y=&plot=full&tomatoes=true&apikey=7af38222";
-    request(urlHit, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            var jsonData = JSON.parse(body);
-            console.log("Title: " + jsonData.Title);
-            console.log("Year: " + jsonData.Year);
-            console.log("Rated: " + jsonData.Rated);
-            console.log("IMDB Rating: " + jsonData.imdbRating);
-            console.log("Country: " + jsonData.Country);
-            console.log("Language: " + jsonData.Language);
-            console.log("Plot: " + jsonData.Plot);
-            console.log("Actors: " + jsonData.Actors);
-            console.log("Rotton Tomatoes Rating: " + jsonData.Ratings[1].Value);
-        }
-    });
-};
+       
+        axios.get(urlHit)
+        .then(function (response) {
+
+            var r = response.data
+            console.log("Title: " + r.Title);
+            console.log("Year: " + r.Year);
+            console.log("Rated: " + r.Rated);
+            console.log("IMDB Rating: " + r.Ratings[0].Value);
+            console.log("Country: " + r.Country);
+            console.log("Language: " + data.Language);
+            console.log("Plot: " + r.Plot);
+            console.log("Actors: " + r.Actors);
+            console.log("Rotton Tomatoes Rating: " + r.Ratings[1].Value);
+        } 
+        )};
+
 // Function for running a command based on text file
+
 var doWhatItSays = function () {
-    fs.readFile("random.txt", "utf8", function (error, data) {
+
+    fs.readFile('random.txt', (err, data) => {
+        if (err) throw err;
         console.log(data);
-        var dataArr = data.split(",");
+      
+
+        var dataArr = data;
+
         if (dataArr.length === 2) {
             options(dataArr[0], dataArr[1]);
         } else if (dataArr.length === 1) {
@@ -127,7 +139,4 @@ var runLiri = function (argOne, argTwo) {
 };
 // LIRI SHOULD WORK
 // ===================================== 
-runLiri(process.argv[2], process.argv[3]);
-
-
- 
+runLiri(process.argv[2], process.argv.slice(3).join(" "));
