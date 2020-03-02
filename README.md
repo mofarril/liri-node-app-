@@ -1,6 +1,7 @@
 # LIRI NODE APP
-HW8 (week 10)
-OVERVIEW
+
+## OVERVIEW
+
 LIRI is a Language Interpretation and Recognition Interface. LIRI is a command line node app that takes in parameters and gives back data.
 
 Use commands spotify-this-song, movie-this, concert-this and LIRI will search Spotify for songs, Bands in Town for concerts, and OMDB for movies.
@@ -10,10 +11,7 @@ Use commands spotify-this-song, movie-this, concert-this and LIRI will search Sp
 ![spotify-this-song](https://github.com/mofarril/liri-node-app-/blob/master/screenshots/spotify-this.PNG)
 
 
-Contain a link to a deployed version of the app -don't know how to do this
-
-
-Technologies used in the app
+## Technologies used in the app
 
 NODE.JS
 SPotify API
