@@ -13,12 +13,12 @@ Use commands spotify-this-song, movie-this, concert-this and LIRI will search Sp
 
 ## Technologies used in the app
 
-NODE.JS
-SPotify API
-AXIOS Package
-Bands in Town API
-OMDB API
-MOMENT.JS
-DOTENV
+* NODE.JS
+* SPotify API
+* AXIOS Package
+* Bands in Town API
+* OMDB API
+* MOMENT.JS
+* DOTENV
 
 *If you want to clone this app from github and run it, you would need to supply your own .env file for it to work.
